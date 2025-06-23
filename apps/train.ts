@@ -84,21 +84,42 @@
 
 // TASK
 
-function areArraysEqual(arr1: any[], arr2: any[]): boolean {
-	const set1 = new Set(arr1);
-	const set2 = new Set(arr2);
+// function areArraysEqual(arr1: any[], arr2: any[]): boolean {
+// 	const set1 = new Set(arr1);
+// 	const set2 = new Set(arr2);
 
-	for (const val of set1) {
-		if (!set2.has(val)) return false;
+// 	for (const val of set1) {
+// 		if (!set2.has(val)) return false;
+// 	}
+
+// 	for (const val of set2) {
+// 		if (!set1.has(val)) return false;
+// 	}
+
+// 	return true;
+// }
+
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2]));
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2, 1]));
+// console.log(areArraysEqual([1, 2, 3], [4, 1, 2]));
+
+// TASK ZQ
+function findDuplicates(arr: number[]): number[] {
+	const count: Record<number, number> = {};
+	const result: number[] = [];
+
+	for (const num of arr) {
+		count[num] = (count[num] || 0) + 1;
 	}
 
-	for (const val of set2) {
-		if (!set1.has(val)) return false;
+	for (const key in count) {
+		if (count[key] > 1) {
+			result.push(Number(key));
+		}
 	}
 
-	return true;
+	return result;
 }
 
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2]));
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2, 1]));
-console.log(areArraysEqual([1, 2, 3], [4, 1, 2]));
+const nums = [1, 2, 3, 4, 5, 4, 3, 4];
+console.log(findDuplicates(nums));
