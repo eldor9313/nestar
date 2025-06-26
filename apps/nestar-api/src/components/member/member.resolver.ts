@@ -15,7 +15,6 @@ import { getSerialForImage, shapeIntoMongoObjectId, validMimeTypes } from '../..
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
 import { Message } from '../../libs/enums/common.enum';
-import { ExternalExceptionsHandler } from '@nestjs/core/exceptions/external-exceptions-handler';
 
 @Resolver()
 export class MemberResolver {
@@ -79,6 +78,18 @@ export class MemberResolver {
 	public async getAgents(@Args('input') input: AgentsInquiry, @AuthMember('_id') memberId: ObjectId): Promise<Members> {
 		console.log('Query: getAgents');
 		return await this.memberService.getAgents(memberId, input);
+	}
+
+	// LIKE
+	@UseGuards(AuthGuard)
+	@Mutation(() => Member)
+	public async likeTargetMember(
+		@Args('memberId') input: string,
+		@AuthMember('_id') memberId: ObjectId,
+	): Promise<Member> {
+		console.log('Mutation: likeTargetMember');
+		const likRefId = shapeIntoMongoObjectId(input);
+		return await this.memberService.likeTargetMember(memberId, likRefId);
 	}
 
 	/** ADMIN **/
