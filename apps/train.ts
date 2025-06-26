@@ -104,22 +104,40 @@
 // console.log(areArraysEqual([1, 2, 3], [4, 1, 2]));
 
 // TASK ZQ
-function findDuplicates(arr: number[]): number[] {
-	const count: Record<number, number> = {};
-	const result: number[] = [];
+// function findDuplicates(arr: number[]): number[] {
+// 	const count: Record<number, number> = {};
+// 	const result: number[] = [];
 
-	for (const num of arr) {
-		count[num] = (count[num] || 0) + 1;
-	}
+// 	for (const num of arr) {
+// 		count[num] = (count[num] || 0) + 1;
+// 	}
 
-	for (const key in count) {
-		if (count[key] > 1) {
-			result.push(Number(key));
+// 	for (const key in count) {
+// 		if (count[key] > 1) {
+// 			result.push(Number(key));
+// 		}
+// 	}
+
+// 	return result;
+// }
+
+// const nums = [1, 2, 3, 4, 5, 4, 3, 4];
+// console.log(findDuplicates(nums));
+
+// TASK ZR
+function countNumberAndLetters(input: string): { number: number; letter: number } {
+	let number = 0;
+	let letter = 0;
+
+	for (let char of input) {
+		if (/[0-9]/.test(char)) {
+			number++;
+		} else if (/[a-zA-Z]/.test(char)) {
+			letter++;
 		}
 	}
 
-	return result;
+	return { number, letter };
 }
 
-const nums = [1, 2, 3, 4, 5, 4, 3, 4];
-console.log(findDuplicates(nums));
+console.log(countNumberAndLetters('string152%\\¥'));
