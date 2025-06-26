@@ -94,7 +94,6 @@ export class MemberService {
 		if (!targetMember) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
 
 		if (memberId) {
-			// record view
 			const viewInput = {
 				memberId: memberId,
 				viewRefId: targetId,
@@ -102,12 +101,12 @@ export class MemberService {
 			};
 			const newView = await this.viewService.recordView(viewInput);
 			if (newView) {
-				// increase memberView
 				await this.memberModel.findByIdAndUpdate(search, { $inc: { memberViews: 1 } }, { new: true }).exec();
 				targetMember.memberViews++;
 			}
 
-			// meLiked
+			const likeInput = { memberId: memberId, likeRefId: targetId, likeGroup: LikeGroup.MEMBER };
+			targetMember.meLiked = await this.likeService.checkLikeExistence(likeInput);
 			// meFolowed
 		}
 
