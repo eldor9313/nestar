@@ -125,19 +125,26 @@
 // console.log(findDuplicates(nums));
 
 // TASK ZR
-function countNumberAndLetters(input: string): { number: number; letter: number } {
-	let number = 0;
-	let letter = 0;
+// function countNumberAndLetters(input: string): { number: number; letter: number } {
+// 	let number = 0;
+// 	let letter = 0;
 
-	for (let char of input) {
-		if (/[0-9]/.test(char)) {
-			number++;
-		} else if (/[a-zA-Z]/.test(char)) {
-			letter++;
-		}
-	}
+// 	for (let char of input) {
+// 		if (/[0-9]/.test(char)) {
+// 			number++;
+// 		} else if (/[a-zA-Z]/.test(char)) {
+// 			letter++;
+// 		}
+// 	}
 
-	return { number, letter };
+// 	return { number, letter };
+// }
+
+// console.log(countNumberAndLetters('string152%\\¥'));
+
+// TASK ZS
+function singleNumber(arr: number[]): number {
+	return arr.find((num) => arr.indexOf(num) === arr.lastIndexOf(num))!;
 }
 
-console.log(countNumberAndLetters('string152%\\¥'));
+console.log(singleNumber([4, 2, 1, 2, 1]));
