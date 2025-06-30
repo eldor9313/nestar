@@ -30,6 +30,7 @@ export const shapeIntoMongoObjectId = (target: any) => {
 	return typeof target === 'string' ? new ObjectId(target) : target;
 };
 
+// lookupAuthMemberLiked
 export const lookupAuthMemberLiked = (memberId: T, targetRefId: string = '$_id') => {
 	return {
 		$lookup: {
@@ -57,6 +58,43 @@ export const lookupAuthMemberLiked = (memberId: T, targetRefId: string = '$_id')
 				},
 			],
 			as: 'meLiked',
+		},
+	};
+};
+
+// lookupAuthMemberFollowed
+interface LookupAuthMemberFollowed {
+	followerId: T;
+	followingId: string;
+}
+export const lookupAuthMemberFollowed = (input: LookupAuthMemberFollowed) => {
+	const { followerId, followingId } = input;
+	return {
+		$lookup: {
+			from: 'followes',
+			let: {
+				localLikeRefId: followerId,
+				localMemberId: followingId,
+				localMyFavorite: true,
+			},
+			pipeline: [
+				{
+					$match: {
+						$expr: {
+							$and: [{ $eq: ['$followerId', '$$localLikeRefId'] }, { $eq: ['$followingId', '$$localMemberId'] }],
+						},
+					},
+				},
+				{
+					$project: {
+						_id: 0,
+						followerId: 1,
+						followingId: 1,
+						myFollowing: '$$localMyFavorite',
+					},
+				},
+			],
+			as: 'meFollowed',
 		},
 	};
 };
