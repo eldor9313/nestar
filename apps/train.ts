@@ -149,7 +149,7 @@
 
 // console.log(singleNumber([4, 2, 1, 2, 1]));
 
-// TASK
+// TASK ZT
 
 function firstUniqueCharIndex(str: string): number {
 	const charCount: Record<string, number> = {};
