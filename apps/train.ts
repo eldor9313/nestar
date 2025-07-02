@@ -151,16 +151,38 @@
 
 // TASK ZT
 
-function firstUniqueCharIndex(str: string): number {
-	const charCount: Record<string, number> = {};
-	for (const char of str) {
-		charCount[char] = (charCount[char] || 0) + 1;
+// function firstUniqueCharIndex(str: string): number {
+// 	const charCount: Record<string, number> = {};
+// 	for (const char of str) {
+// 		charCount[char] = (charCount[char] || 0) + 1;
+// 	}
+// 	for (let i = 0; i < str.length; i++) {
+// 		if (charCount[str[i]] === 1) return i;
+// 	}
+// 	return -1;
+// }
+
+// console.log(firstUniqueCharIndex('stamp'));
+// console.log(firstUniqueCharIndex('success'));
+
+// TASK ZU
+
+function sumOfUnique(nums: number[]): number {
+	const countMap: Record<number, number> = {};
+
+	for (const num of nums) {
+		countMap[num] = (countMap[num] || 0) + 1;
 	}
-	for (let i = 0; i < str.length; i++) {
-		if (charCount[str[i]] === 1) return i;
+
+	let sum = 0;
+	for (const num in countMap) {
+		if (countMap[num] === 1) {
+			sum += Number(num);
+		}
 	}
-	return -1;
+
+	return sum;
 }
 
-console.log(firstUniqueCharIndex('stamp'));
-console.log(firstUniqueCharIndex('success'));
+console.log(sumOfUnique([1, 2, 3, 2]));
+console.log(sumOfUnique([1, 2, 3, 4]));
